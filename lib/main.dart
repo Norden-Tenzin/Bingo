@@ -5,6 +5,12 @@ void main() {
   runApp(App());
 }
 
+// Colors:
+const text = const Color(0xffFFFFFF);
+const background = const Color(0xff6F000A);
+const primary = const Color(0xffCE0115);
+const secondary = const Color(0xff92000E);
+
 class Ball {
   int ballNum;
   bool ballState = false;
@@ -33,8 +39,6 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    //calc
-
     list.addAll(templist.ballList);
 
     void picker() {
@@ -75,24 +79,40 @@ class _AppState extends State<App> {
     } else {
       curr = log[len];
     }
-
     return MaterialApp(
         home: Scaffold(
+            appBar: AppBar(
+              toolbarHeight: 50,
+              backgroundColor: secondary,
+              actions: [
+                Container(
+                    width: 100,
+                    margin: EdgeInsets.only(right: 15),
+                    child: RaisedButton(
+                        onPressed: reset,
+                        color: primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                        ),
+                        child: Icon(Icons.replay, color: text)))
+              ],
+            ),
             floatingActionButton: Container(
               width: 100,
               child: FloatingActionButton(
                 onPressed: picker,
-                child: Text("Next >"),
-                backgroundColor: Colors.red,
+                child: Text("Next"),
+                backgroundColor: primary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(16.0)),
                 ),
               ),
             ),
+            backgroundColor: background,
             body: CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
-                  backgroundColor: Colors.white,
+                  backgroundColor: background,
                   bottom: PreferredSize(
                     // Add this code
                     preferredSize: Size.fromHeight(60.0), // Add this code
@@ -109,6 +129,10 @@ class _AppState extends State<App> {
                         child: Center(
                           child: Text(
                             "$curr",
+                            style: TextStyle(
+                              color: text,
+                              fontSize: 40,
+                            ),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -116,13 +140,13 @@ class _AppState extends State<App> {
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
+                                color: Colors.black.withOpacity(0.5),
                                 blurRadius: 2,
                                 offset:
                                     Offset(0, 5), // changes position of shadow
                               ),
                             ],
-                            color: Colors.red),
+                            color: primary),
                       )),
                 ),
                 SliverGrid(
@@ -138,11 +162,17 @@ class _AppState extends State<App> {
 
                       return Container(
                         alignment: Alignment.center,
-                        child: Text('$x'),
+                        child: Text(
+                          '$x',
+                          style: TextStyle(
+                            color: text,
+                            fontSize: 15,
+                          ),
+                        ),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
+                              color: Colors.black.withOpacity(0.5),
                               blurRadius: 2,
                               offset:
                                   Offset(0, 5), // changes position of shadow
@@ -150,8 +180,8 @@ class _AppState extends State<App> {
                           ],
                           shape: BoxShape.circle,
                           color: list[index].ballState == true
-                              ? Colors.red
-                              : Colors.grey,
+                              ? primary
+                              : secondary,
                         ),
                       );
                     },
@@ -163,24 +193,19 @@ class _AppState extends State<App> {
                   delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                     return Container(
-                        margin: EdgeInsets.only(top: 5),
-                        alignment: Alignment.center,
-                        color: Colors.grey[600],
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  'Log:',
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              FlatButton(
-                                child: Text("Reset"),
-                                onPressed: reset,
-                                color: Colors.red,
-                              ),
-                            ]));
+                      margin: EdgeInsets.only(top: 5),
+                      alignment: Alignment.center,
+                      color: secondary,
+                      child: Container(
+                        child: Text(
+                          'Log',
+                          style: TextStyle(
+                            color: text,
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                    );
                   }, childCount: 1),
                 ),
                 SliverFixedExtentList(
@@ -192,33 +217,46 @@ class _AppState extends State<App> {
                     return Container(
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.only(left: 20),
-                        color: Colors.grey[300],
+                        color: background,
                         child: Row(
                           children: <Widget>[
                             Container(
-                              height: 40,
-                              width: 40,
-                              margin: EdgeInsets.only(right: 50),
+                              margin: EdgeInsets.only(right: 60),
                               child: Center(
                                 child: Text(
                                   "$x",
+                                  style: TextStyle(
+                                    color: text,
+                                    fontSize: 15,
+                                  ),
                                   textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 40,
+                              width: 40,
+                              child: Center(
+                                child: Text(
+                                  "$logHolder",
+                                  style: TextStyle(
+                                    color: text,
+                                    fontSize: 15,
+                                  ),
                                 ),
                               ),
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.grey[500].withOpacity(0.5),
+                                    color: Colors.black.withOpacity(0.5),
                                     blurRadius: 2,
-                                    offset: Offset(
-                                        0, 5), // changes position of shadow
+                                    offset: Offset(0, 5),
                                   ),
                                 ],
                                 shape: BoxShape.circle,
-                                color: Colors.grey[500],
+                                color: primary,
                               ),
                             ),
-                            Container(child: Text("$logHolder")),
                           ],
                         ));
                   }, childCount: log.length),
