@@ -42,7 +42,7 @@ class Home extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushNamed(context, AppRoutes.ticket);
                   },
-                  child: Text("Player",
+                  child: Text("Tickets",
                       style: TextStyle(fontSize: 18, color: text)),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(12.0)),

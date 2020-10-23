@@ -6,7 +6,7 @@ import "numPicker.dart";
 import 'routes.dart';
 import 'home.dart';
 import 'numPicker.dart';
-import 'ticket.dart';
+import 'ticketPage.dart';
 
 void main() {
   runApp(App());
@@ -85,8 +85,8 @@ class App extends StatelessWidget {
       );
     } else if (settings.name == AppRoutes.ticket) {
       return MaterialPageRoute(
-        builder: (context) => Ticket(),
-        settings: rotationSettings(settings, ScreenOrientation.landscapeOnly),
+        builder: (context) => TicketPage(),
+        settings: rotationSettings(settings, ScreenOrientation.portraitOnly),
       );
     }
     return null;

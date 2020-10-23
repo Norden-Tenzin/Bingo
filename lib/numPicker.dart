@@ -1,22 +1,7 @@
 import 'package:flutter/material.dart';
 import "colors.dart";
 import 'dart:math';
-
-class Ball {
-  int ballNum;
-  bool ballState = false;
-
-  Ball(this.ballNum);
-}
-
-class BallListInit {
-  var ballList = [];
-  BallListInit() {
-    for (int i = 0; i < 100; i++) {
-      ballList.add(new Ball(i + 1));
-    }
-  }
-}
+import 'helper.dart';
 
 class NumPicker extends StatefulWidget {
   @override
